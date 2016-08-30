@@ -551,6 +551,9 @@ public class JGitUtils {
 					if (gitDir.equals(file) || gitDir.getParentFile().equals(file)) {
 						// determine repository name relative to base path
 						String repository = FileUtils.getRelativePath(baseFile, file);
+				       if( repository == null ){
+				            repository= file.getName();
+				        }
 						list.add(repository);
 					} else if (searchSubfolders && file.canRead()) {
 						// look for repositories in subfolders
