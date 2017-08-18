@@ -19,11 +19,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.wicket.RequestCycle;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.protocol.http.WebRequest;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -90,10 +94,13 @@ public class SearchPanel extends BasePanel {
 
 				item.add(WicketUtils.createDateLabel("commitDate", date, getTimeZone(), getTimeUtils()));
 
+				final HttpServletRequest req = ((WebRequest)RequestCycle.get().getRequest()).getHttpServletRequest();
+				final String branch = req == null ? null : req.getParameter("h");
+
 				// author search link
 				String author = entry.getAuthorIdent().getName();
 				LinkPanel authorLink = new LinkPanel("commitAuthor", "list", author,
-						GitSearchPage.class, WicketUtils.newSearchParameter(repositoryName, null,
+						GitSearchPage.class, WicketUtils.newSearchParameter(repositoryName, branch,
 								author, Constants.SearchType.AUTHOR));
 				setPersonSearchTooltip(authorLink, author, Constants.SearchType.AUTHOR);
 				item.add(authorLink);
