@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
 before_install:
-  - echo $(ant -version)
+  - bash -c "ant -version"
 cache:
   bundler: true
   directories:
