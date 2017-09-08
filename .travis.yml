@@ -7,6 +7,7 @@ cache:
   bundler: true
   directories:
   - $HOME/.moxie
+#  - $HOME/.ant
 sudo: true
 addons:
   apt:
