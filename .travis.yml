@@ -3,3 +3,7 @@ jdk:
   - oraclejdk8
 before_install:
   - echo $(ant -version)
+cache:
+  bundler: true
+  directories:
+  - $HOME/.moxie
